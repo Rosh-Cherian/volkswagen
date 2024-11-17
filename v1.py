@@ -23,20 +23,18 @@ def suggest_gear_and_speed(distance, speed, rpm, gear):
         optimal_gear = gear  # No change if out of defined range
 
     # Determine current gear efficiency
-    if rpm <= optimal_rpm_range[0]:
+    if rpm <= optimal_rpm_range[0] and optimal_gear<gear:
         suggestion = "Downshift to the next gear for better efficiency."
-    elif rpm >= optimal_rpm_range[1]:
+    elif rpm >= optimal_rpm_range[1] and optimal_gear>gear:
         suggestion = "Upshift to reduce RPM."
-    elif gear == optimal_gear:
-        suggestion = "Current gear is within the optimal range."
     else:
         suggestion = "None."
-        
+
     # Return suggestions
     return {
-        "suggested_gear": optimal_gear,
+        "suggested_gear_based_on_speed": optimal_gear,
         "suggested_speed_range": gear_speed_map[optimal_gear],
-        "additional_suggestion": suggestion
+        "suggestion_gear_based_on_rpm": suggestion
     }
 
 # Example usage
